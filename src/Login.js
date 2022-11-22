@@ -18,6 +18,7 @@ function Login() {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in
+        console.log(email,password)
         const user = userCredential.user;
         console.log(user);
         // ...
@@ -27,6 +28,7 @@ function Login() {
         console.log(errorCode);
         const errorMessage = error.message;
         console.log(errorMessage);
+        alert('Incorrect email or password');
       });
   };
 
@@ -55,7 +57,7 @@ function Login() {
         <img
           className="login_logo"
           src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Amazon_logo.svg/1024px-Amazon_logo.svg.png"
-          alt=""
+          alt="amazon logo"
         />
       </Link>
 

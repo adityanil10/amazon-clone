@@ -1,27 +1,25 @@
 import React, { useState } from "react";
 import "./Login.css";
-import { Link, useNavigate} from "react-router-dom";
+import { Link , useNavigate} from "react-router-dom";
 import {auth} from "./firebase";
 import {
-  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
 } from "firebase/auth";
 
-function Login() {
-  const [email, setEmail] = useState("");
+function Register() {
+    const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const signIn = (e) => {
+  const register = (e) => {
     e.preventDefault();
 
-
-    signInWithEmailAndPassword(auth, email, password)
+    createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in
-        console.log(email)
         const user = userCredential.user;
         console.log(user);
-        navigate("/");
+        navigate("/")
         // ...
       })
       .catch((error) => {
@@ -29,7 +27,7 @@ function Login() {
         console.log(errorCode);
         const errorMessage = error.message;
         console.log(errorMessage);
-        alert('Incorrect email or password');
+        // ..
       });
   };
 
@@ -44,7 +42,7 @@ function Login() {
       </Link>
 
       <div className="login_container">
-        <h1>Sign In</h1>
+        <h1>Create Your Account</h1>
 
         <form>
           <h5>E-mail</h5>
@@ -60,10 +58,6 @@ function Login() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-
-          <button type="submit" onClick={signIn} className="login_signInButton">
-            Sign In
-          </button>
         </form>
 
         <p>
@@ -72,14 +66,12 @@ function Login() {
           Interest-Based Ads Notice.
         </p>
 
-        <Link to="/register">
-          <button className="login_registerButton">
+        <button onClick={register} className="login_registerButton">
             Create your Amazon Account
-          </button>
-        </Link>
+        </button>
       </div>
     </div>
   );
 }
 
-export default Login;
+export default Register;

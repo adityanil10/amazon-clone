@@ -1,5 +1,6 @@
 export const initialState = {
     basket: [],
+    user: null
 };
 /*Below return statement changes the basket to what the basket currently was and push the item in the basket */
 
@@ -31,6 +32,12 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 basket: newBasket
+            }
+
+        case "SET_USER":
+            return {
+               ...state,
+               user: action.user 
             }
 
         default:

@@ -4,12 +4,19 @@ import SearchIcon from '@mui/icons-material/Search';
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
  import { Link } from 'react-router-dom';
 import { useStateValue } from './StateProvider';
+import { auth } from './firebase';
 
 // Link links a division or an object with a certain link and upon click redirects the page to that specified link
 //basket?.length the ? means that if u for any reason don't have correct value or basket becomes undefined due to some error it won't freak out. it will handle the error
 
 function Header() {
-    const [{basket}, dispatch] = useStateValue();
+    const [{basket, user}, dispatch] = useStateValue();
+
+    const handleAuthentication = () => {
+        if(user) {
+            auth.signOut();
+        }
+    }
 
   return (
     <div className='header'>
@@ -27,10 +34,10 @@ function Header() {
         </div>
 
         <div className="header_nav">
-            <Link to="/login">
-                <div className="header_option">
-                    <span className='header_optionLineOne'>Hello There</span>
-                    <span className='header_optionLineTwo'>Sign In</span>
+            <Link to={!user && "/login"}>
+                <div onClick={handleAuthentication} className="header_option">
+                    <span className='header_optionLineOne'>Hello {user ? user?.email : 'Guest'}</span>
+                    <span className='header_optionLineTwo'>{user ? 'Sign Out': 'Sign In'}</span>
                 </div>
             </Link>
 

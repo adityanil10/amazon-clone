@@ -3,6 +3,7 @@ import CurrencyFormat from 'react-currency-format';
 import { getBasketTotal } from './reducer';
 import { useStateValue } from './StateProvider';
 import "./Subtotal.css";
+import { useNavigate } from 'react-router-dom';
 
 
 /* Features of react-currency-format :
@@ -16,6 +17,7 @@ import "./Subtotal.css";
 // CurrencyFormat helps in easier control and design of field
 
 function Subtotal() {
+    const navigate = useNavigate();
     const [{basket}, dispatch] = useStateValue();
 
   return (
@@ -40,7 +42,7 @@ function Subtotal() {
             prefix={"$"}
         />
 
-        <button > Proceed to Checkout</button>
+        <button onClick={e => navigate('/payment')}> Proceed to Checkout</button>
     </div>
   )
 }

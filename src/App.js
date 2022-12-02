@@ -9,6 +9,10 @@ import Register from './Register';
 import Payment from './Payment';
 import { auth } from './firebase';
 import { useStateValue } from "./StateProvider";
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements } from '@stripe/react-stripe-js';
+
+const promise = loadStripe("pk_test_51MAepASHwHsw4yZ0Aq2ZmyMfBvSiBnxejLHGBbcV8tMkquUNtzk7VQyQG2RJ2DIINC8bxNl2gjL1ZSiqMvwp19gz00uk9x94fY");
 
 // Router and Routes specify component to be used in a certain url
 
@@ -44,7 +48,10 @@ function App() {
               <Route path="/" element={<><Header /><Home /></>} />
               <Route path="/checkout" element={<><Header /><Checkout /></>} />
               <Route path="/register" element={<Register />} />
-              <Route path="/payment" element={<Payment />} />
+              <Route path="/payment" element={<><Header />
+                                                <Elements stripe={promise}>
+                                                  <Payment />
+                                                </Elements></>} />
             </Routes>
         </Router>
       </div>
